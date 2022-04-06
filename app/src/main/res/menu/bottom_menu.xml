@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/single_user"
+        android:id="@+id/singleUserFragment"
+        android:icon="@drawable/ic_single_user"/>
+
+    <item android:title = "Groups"
+        android:id="@+id/multiUserFragment"
+        android:icon="@drawable/ic_multi_user"/>
+</menu>

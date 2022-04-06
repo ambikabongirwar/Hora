@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+    android:background="@color/dark_blue"
+tools:context=".singleUser.SingleUserFragment">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/homeScreenImg"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        android:elevation="10dp"
+        android:contentDescription="Let's get productive!"
+        android:src="@drawable/horahomescreenimg"
+        app:shapeAppearanceOverlay="@style/round_image_view"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRedirectToTasks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonRedirectToTasks"
+        android:layout_width="350dp"
+        android:layout_height="52dp"
+        android:layout_margin="2dp"
+        android:layout_marginTop="68dp"
+        android:text="@string/task_list"
+        app:cornerRadius="20dp"
+        android:backgroundTint="@color/light_blue"
+        android:textColor="@color/purple_baseline"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRedirectToMoodCheck"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/homeScreenImg" />
+
+    <Button
+        android:id="@+id/buttonRedirectToMoodCheck"
+        android:layout_width="350dp"
+        android:layout_height="52dp"
+        android:layout_margin="2dp"
+        android:text="@string/mood_check"
+        app:cornerRadius="20dp"
+        android:backgroundTint="@color/light_blue"
+        android:textColor="@color/purple_baseline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRedirectToTasks"
+        app:layout_constraintVertical_bias="0.528" />
+</androidx.constraintlayout.widget.ConstraintLayout>

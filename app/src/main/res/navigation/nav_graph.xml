@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/singleUserFragment">
+
+    <fragment
+        android:id="@+id/singleUserFragment"
+        android:name="com.example.miniproject1.singleUser.SingleUserFragment"
+        android:label="fragment_single_user"
+        tools:layout="@layout/fragment_single_user" >
+        <action
+            android:id="@+id/action_singleUserFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment" />
+        <action
+            android:id="@+id/action_singleUserFragment_to_moodCheckFragment"
+            app:destination="@id/moodCheckFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/multiUserFragment"
+        android:name="com.example.miniproject1.multiUser.MultiUserFragment"
+        android:label="fragment_multi_user"
+        tools:layout="@layout/fragment_multi_user" />
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.example.miniproject1.singleUser.tasks.TasksFragment"
+        android:label="fragment_tasks"
+        tools:layout="@layout/fragment_tasks" />
+    <fragment
+        android:id="@+id/moodCheckFragment"
+        android:name="com.example.miniproject1.singleUser.moodCheck.MoodCheckFragment"
+        android:label="fragment_mood_check"
+        tools:layout="@layout/fragment_mood_check" />
+
+</navigation>
