@@ -1,17 +1,16 @@
 package com.example.miniproject1
 
-import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+@Suppress("DEPRECATED_IDENTITY_EQUALS", "DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
-    val TAG = "MainActivity"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,37 +21,23 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.setupWithNavController(fragmentContainer.findNavController())
 
-    }
+        hideDefaultNavBar()
 
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "onStart Called")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "onResume Called")
+        hideDefaultNavBar()
     }
 
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "onPause Called")
+    fun hideDefaultNavBar() {
+        this.getWindow().getDecorView().setSystemUiVisibility(
+            View.SYSTEM_UI_FLAG_FULLSCREEN or
+                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY /*or
+                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE*/
+        )
     }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "onStop Called")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy Called")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d(TAG, "onRestart Called")
-    }
-
 
 }

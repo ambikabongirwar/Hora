@@ -7,9 +7,9 @@
     </style>
 
     <style name="BottomNavigation">
-        <item name="android:background">@color/dark_blue</item>
-        <item name="itemIconTint">@color/purple_baseline</item>
-        <item name="itemTextColor">@color/purple_baseline</item>
+        <item name="android:background">@color/purple_baseline</item>
+        <item name="itemIconTint">@color/light_blue</item>
+        <item name="itemTextColor">@color/light_blue</item>
 
     </style>
 </resources>
