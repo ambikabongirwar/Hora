@@ -7,7 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-@Suppress("DEPRECATED_IDENTITY_EQUALS", "DEPRECATION")
+//@Suppress("DEPRECATED_IDENTITY_EQUALS", "DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
 
@@ -21,11 +21,11 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.setupWithNavController(fragmentContainer.findNavController())
 
-        hideDefaultNavBar()
+        //hideDefaultNavBar()
 
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
         hideDefaultNavBar()
     }
@@ -38,6 +38,6 @@ class MainActivity : AppCompatActivity() {
                     View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE*/
         )
-    }
+    }*/
 
 }
