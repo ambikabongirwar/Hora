@@ -22,7 +22,8 @@
         android:id="@+id/multiUserFragment"
         android:name="com.example.miniproject1.multiUser.MultiUserFragment"
         android:label="fragment_multi_user"
-        tools:layout="@layout/fragment_multi_user" />
+        tools:layout="@layout/fragment_multi_user" >
+    </fragment>
     <fragment
         android:id="@+id/tasksFragment"
         android:name="com.example.miniproject1.singleUser.tasks.TasksFragment"
@@ -33,5 +34,26 @@
         android:name="com.example.miniproject1.singleUser.moodCheck.MoodCheckFragment"
         android:label="fragment_mood_check"
         tools:layout="@layout/fragment_mood_check" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.miniproject1.multiUser.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_multiUserFragment"
+            app:destination="@id/multiUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.miniproject1.multiUser.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_multiUserFragment"
+            app:destination="@id/multiUserFragment" />
+    </fragment>
 
 </navigation>

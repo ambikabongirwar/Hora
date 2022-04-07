@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_mood_check.xml" value="0.25" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_mood_check1.xml" value="0.16302083333333334" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_multi_user.xml" value="0.2359375" />
+        <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_register.xml" value="0.1" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_single_user.xml" value="0.25" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_tasks.xml" value="0.25" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/item_task.xml" value="0.25" />
