@@ -80,7 +80,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                         navController.navigate(R.id.action_registerFragment_to_multiUserFragment)
                     }
                     else {
-                        Toast.makeText(context, "Authentication failed.",
+                        Toast.makeText(context, "" + task.exception?.message,
                             Toast.LENGTH_SHORT).show()
                     }
                 }
