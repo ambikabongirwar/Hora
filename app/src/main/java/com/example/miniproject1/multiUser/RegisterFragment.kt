@@ -34,16 +34,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         return view
     }
 
-    override fun onStart() {
-        Log.d(TAG, "OnStarted")
-        super.onStart()
-        val currentUser = mAuth.currentUser
-        if (currentUser != null) {
-            navController.navigate(R.id.action_registerFragment_to_multiUserFragment)
-        }
-        Log.d(TAG, "OnStartEnded")
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "On View Created")
@@ -57,22 +47,32 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         Log.d(TAG, "After register in on view created")
     }
 
+    override fun onStart() {
+        Log.d(TAG, "OnStarted")
+        super.onStart()
+        val currentUser = mAuth.currentUser
+        if (currentUser != null) {
+            navController.navigate(R.id.action_registerFragment_to_multiUserFragment)
+        }
+        Log.d(TAG, "OnStartEnded")
+    }
+
     override fun onClick(v: View?) {
         Log.d(TAG, "Inside On click")
         when(v!!.id) {
-            R.id.btnRegister -> register(v)
+            R.id.btnRegister -> register()
             R.id.btnRegisterToLogin -> navController.navigate(R.id.action_registerFragment_to_loginFragment)
         }
     }
 
-    fun register(v: View){
-        Log.d(TAG, "inside register function")
+    fun register(){
+        //Log.d(TAG, "inside register function")
         val email = email_id_edt.text.toString()
-        Log.d(TAG, "got email")
+        //Log.d(TAG, "got email")
         val password = password_edt.text.toString()
-        Log.d(TAG, "got password")
+        //Log.d(TAG, "got password")
         val confirmPassword = confirm_password_edt.text.toString()
-        Log.d(TAG, "input email and pasword")
+        //Log.d(TAG, "input email and pasword")
         if (password == confirmPassword) {
             mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) {task ->
