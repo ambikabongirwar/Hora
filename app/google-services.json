@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1079145434112",
+    "project_id": "hora-productivity-app",
+    "storage_bucket": "hora-productivity-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079145434112:android:3a1ea89e3eb7f79c221ce5",
+        "android_client_info": {
+          "package_name": "com.example.miniproject1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079145434112-cjcf7a72svqce6realg7q0ef3q5pgsj7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGBwq9Y6v7nAvvLw-EQNgHjoTUisjBVHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079145434112-cjcf7a72svqce6realg7q0ef3q5pgsj7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

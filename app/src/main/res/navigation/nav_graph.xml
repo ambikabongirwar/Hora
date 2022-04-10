@@ -23,6 +23,9 @@
         android:name="com.example.miniproject1.multiUser.MultiUserFragment"
         android:label="fragment_multi_user"
         tools:layout="@layout/fragment_multi_user" >
+        <action
+            android:id="@+id/action_multiUserFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/tasksFragment"

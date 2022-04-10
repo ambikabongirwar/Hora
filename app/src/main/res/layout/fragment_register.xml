@@ -42,6 +42,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:text="ambikabongirwar@gmail.com"
         android:layout_margin="10dp"
         android:hint="@string/email_input"
         android:importantForAutofill="no"
@@ -59,8 +60,9 @@
         android:ems="10"
         android:layout_margin="10dp"
         android:hint="@string/password"
+        android:text="Ambika"
         android:importantForAutofill="no"
-        android:inputType="numberPassword"
+        android:inputType="textPassword"
         android:minHeight="48dp"
         android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/editTextRegisterConfirmPassword"
@@ -74,8 +76,9 @@
         android:ems="10"
         android:layout_margin="10dp"
         android:hint="@string/confirm_password"
+        android:text="Ambi"
         android:importantForAutofill="no"
-        android:inputType="numberPassword"
+        android:inputType="textPassword"
         android:minHeight="48dp"
         android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
@@ -102,4 +105,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
