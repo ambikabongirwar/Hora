@@ -7,22 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".multiUser.MultiUserFragment">
 
-    <TextView
-        android:id="@+id/email_address"
+    <ImageButton
+        android:id="@+id/ibLogOut"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="45dp"
+        android:background="@color/purple_baseline"
+        android:contentDescription="@string/logout"
+        android:minWidth="32dp"
+        android:src="@drawable/ic_outline_exit_to_app_24"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/light_blue" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="380dp"
+        android:layout_height="45dp"
+        android:background="@color/purple_baseline"
+        android:text="@string/groups"
+        android:textColor="@color/light_blue"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnLogOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="409dp"
+        android:layout_height="684dp"
+        android:layout_marginTop="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_address" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

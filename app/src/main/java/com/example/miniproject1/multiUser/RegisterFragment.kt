@@ -13,6 +13,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.miniproject1.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class RegisterFragment : Fragment(), View.OnClickListener {
 
@@ -21,6 +24,9 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     lateinit var email_id_edt: EditText
     lateinit var password_edt: EditText
     lateinit var confirm_password_edt: EditText
+    lateinit var db: FirebaseFirestore
+    lateinit var firstName_edt: EditText
+    lateinit var lastName_edt: EditText
     val TAG = "RegisterFragment"
 
     override fun onCreateView(
@@ -30,6 +36,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_register, container, false)
         mAuth = FirebaseAuth.getInstance()
+        db = Firebase.firestore
         Log.d(TAG, "onCreateView")
         return view
     }
@@ -37,6 +44,8 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "On View Created")
+        firstName_edt = view.findViewById(R.id.editTextRegisterFirstName)
+        lastName_edt = view.findViewById(R.id.editTextRegisterLastName)
         email_id_edt = view.findViewById(R.id.editTextRegisterEmailAddress)
         password_edt = view.findViewById(R.id.editTextRegisterPassword)
         confirm_password_edt = view.findViewById(R.id.editTextRegisterConfirmPassword)
@@ -67,6 +76,8 @@ class RegisterFragment : Fragment(), View.OnClickListener {
 
     fun register(){
         //Log.d(TAG, "inside register function")
+        val firstName = firstName_edt.text.toString()
+        val lastName = lastName_edt.text.toString()
         val email = email_id_edt.text.toString()
         //Log.d(TAG, "got email")
         val password = password_edt.text.toString()
@@ -83,6 +94,19 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                         Toast.makeText(context, "" + task.exception?.message,
                             Toast.LENGTH_SHORT).show()
                     }
+                }
+
+            val userMap = HashMap<String, String>()
+            userMap["First Name"] = firstName
+            userMap["Last Name"] = lastName
+            userMap["Email Address"] = email
+            db.collection("users")
+                .add(userMap)
+                .addOnSuccessListener { documentReference ->
+                    Log.d(TAG, "\"DocumentSnapshot added with ID: ${documentReference.id}")
+                }
+                .addOnFailureListener{ e ->
+                    Log.w(TAG, "Error adding document", e)
                 }
         }
         else {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -36,7 +37,7 @@ class MultiUserFragment : Fragment(), View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         val currentUser = mAuth.currentUser
         val textView: TextView = view.findViewById(R.id.email_address)
-        view.findViewById<Button>(R.id.btnLogOut).setOnClickListener(this)
+        view.findViewById<ImageButton>(R.id.ibLogOut).setOnClickListener(this)
         if (currentUser == null) {
             textView.text = "MultiUser Fragment no user logged in"
         }
@@ -51,7 +52,7 @@ class MultiUserFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         when(view?.id) {
-            R.id.btnLogOut -> logoutAndRedirect()
+            R.id.ibLogOut -> logoutAndRedirect()
         }
     }
 
