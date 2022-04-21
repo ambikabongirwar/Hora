@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_multiUserFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_multiUserFragment_to_newGroupFragment"
+            app:destination="@id/newGroupFragment" />
     </fragment>
     <fragment
         android:id="@+id/tasksFragment"
@@ -61,5 +64,9 @@
             android:id="@+id/action_registerFragment_to_multiUserFragment"
             app:destination="@id/multiUserFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/newGroupFragment"
+        android:name="com.example.miniproject1.multiUser.NewGroupFragment"
+        android:label="NewGroupFragment" />
 
 </navigation>

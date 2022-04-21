@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -51,6 +52,7 @@ class MultiUserFragment : Fragment(), View.OnClickListener {
         db = Firebase.firestore
         val currentUser = mAuth.currentUser
         view.findViewById<ImageButton>(R.id.ibLogOut).setOnClickListener(this)
+        view.findViewById<RecyclerView>(R.id.groupsRecyclerView).setOnClickListener(this)
         updateUI(view, currentUser)
     }
 
@@ -59,7 +61,15 @@ class MultiUserFragment : Fragment(), View.OnClickListener {
         groupArrayList = arrayListOf()
         groupCardAdapter = GroupCardAdapter(groupArrayList)
         recyclerView.adapter = groupCardAdapter
+        Log.d("MultiUserFragment", "inside group adapter0")
         eventChangeListener()
+
+        groupCardAdapter.setOnItemClickListener(object : GroupCardAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                Log.d("MultiUserFragment", "inside group adapter")
+                Toast.makeText(context, "You clicked on item number $position",Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun onClick(view: View?) {

@@ -27,9 +27,7 @@ class TasksFragment : Fragment() {
         //val taskList = DataSource().loadTasks()
         val taskList = mutableListOf<Task>(
             Task("Complete Seminar", true),
-            Task("Complete mini project", false),
-            Task("Get stitches removed", false),
-            Task("Get root canal", false)
+            Task("Complete mini project", false)
         )
         val rvtasks = view.findViewById<RecyclerView>(R.id.rvAllTasks)
         rvtasks.adapter = TasksAdapter(this, taskList)
