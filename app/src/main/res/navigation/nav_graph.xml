@@ -68,5 +68,37 @@
         android:id="@+id/newGroupFragment"
         android:name="com.example.miniproject1.multiUser.NewGroupFragment"
         android:label="NewGroupFragment" />
+    <fragment
+        android:id="@+id/registerFragment1"
+        android:name="com.example.miniproject1.multiUser.RegisterFragment1"
+        android:label="fragment_register1"
+        tools:layout="@layout/fragment_register1" >
+        <action
+            android:id="@+id/action_registerFragment1_to_multiUserFragment1"
+            app:destination="@id/multiUserFragment1" />
+        <action
+            android:id="@+id/action_registerFragment1_to_loginFragment1"
+            app:destination="@id/loginFragment1" />
+    </fragment>
+    <fragment
+        android:id="@+id/multiUserFragment1"
+        android:name="com.example.miniproject1.multiUser.MultiUserFragment1"
+        android:label="fragment_multi_user1"
+        tools:layout="@layout/fragment_multi_user1" >
+        <action
+            android:id="@+id/action_multiUserFragment1_to_registerFragment1"
+            app:destination="@id/registerFragment1" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment1"
+        android:name="com.example.miniproject1.multiUser.LoginFragment1"
+        android:label="LoginFragment1" >
+        <action
+            android:id="@+id/action_loginFragment1_to_multiUserFragment1"
+            app:destination="@id/multiUserFragment1" />
+        <action
+            android:id="@+id/action_loginFragment1_to_registerFragment1"
+            app:destination="@id/registerFragment1" />
+    </fragment>
 
 </navigation>

@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.R
@@ -23,17 +24,18 @@ import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.okhttp.internal.DiskLruCache
+import kotlin.math.log
 
 
-class MultiUserFragment : Fragment(), View.OnClickListener {
+class MultiUserFragment : Fragment(){
 
     lateinit var navController: NavController
     lateinit var mAuth: FirebaseAuth
     private var TAG = "Multi User Fragment"
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var groupArrayList: ArrayList<Groups>
-    private lateinit var groupCardAdapter: GroupCardAdapter
+    //private lateinit var groupArrayList: ArrayList<Groups>
+    //private lateinit var groupCardAdapter: GroupCardAdapter
     private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
@@ -42,6 +44,15 @@ class MultiUserFragment : Fragment(), View.OnClickListener {
     ): View? {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_multi_user, container, false)
+        mAuth = FirebaseAuth.getInstance();
+        db = Firebase.firestore
+        val logOutBtn: Button =view.findViewById(R.id.ibLogOut)
+        /*logOutBtn.setOnClickListener{
+            val fragment = RegisterFragment()
+            val transaction = getFragmentManag fragmentManager?.beginTransaction()
+            transaction?.replace(R.id.multiUserFragment, fragment)?.commit()
+            //Navigation.findNavController(view).navigate(R.id.action_multiUserFragment_to_registerFragment)
+        }*/
         return view
     }
 
@@ -51,28 +62,34 @@ class MultiUserFragment : Fragment(), View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         db = Firebase.firestore
         val currentUser = mAuth.currentUser
-        view.findViewById<ImageButton>(R.id.ibLogOut).setOnClickListener(this)
-        view.findViewById<RecyclerView>(R.id.groupsRecyclerView).setOnClickListener(this)
+        val logOutBtn: ImageButton = view.findViewById(R.id.ibLogOut)
+        logOutBtn.setOnClickListener {
+            FirebaseAuth.getInstance().signOut();
+            Navigation.findNavController(view).navigate(R.id.action_multiUserFragment_to_registerFragment)
+        }
+        //view.findViewById<ImageButton>(R.id.ibLogOut).setOnClickListener(this)
+        //view.findViewById<RecyclerView>(R.id.groupsRecyclerView).setOnClickListener(this)
         updateUI(view, currentUser)
     }
 
     fun updateUI(view: View, currentUser: FirebaseUser?) {
-        recyclerView = view.findViewById(R.id.groupsRecyclerView)
+        /*recyclerView = view.findViewById(R.id.groupsRecyclerView)
         groupArrayList = arrayListOf()
         groupCardAdapter = GroupCardAdapter(groupArrayList)
-        recyclerView.adapter = groupCardAdapter
-        Log.d("MultiUserFragment", "inside group adapter0")
-        eventChangeListener()
+        recyclerView.adapter = groupCardAdapter*/
 
-        groupCardAdapter.setOnItemClickListener(object : GroupCardAdapter.onItemClickListener{
+        Log.d("MultiUserFragment", "inside group adapter0")
+        //eventChangeListener()
+
+        /*groupCardAdapter.setOnItemClickListener(object : GroupCardAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
                 Log.d("MultiUserFragment", "inside group adapter")
                 Toast.makeText(context, "You clicked on item number $position",Toast.LENGTH_SHORT).show()
             }
-        })
+        })*/
     }
 
-    override fun onClick(view: View?) {
+    /*override fun onClick(view: View?) {
         when(view?.id) {
             R.id.ibLogOut -> logoutAndRedirect()
         }
@@ -82,10 +99,10 @@ class MultiUserFragment : Fragment(), View.OnClickListener {
         Log.d("MultiUserFragment", "inside logout and redirect")
         FirebaseAuth.getInstance().signOut();
         navController.navigate(R.id.action_multiUserFragment_to_registerFragment)
-    }
+    }*/
 
-    fun eventChangeListener() {
-        /*db = FirebaseFirestore.getInstance()
+    /*fun eventChangeListener() {
+        db = FirebaseFirestore.getInstance()
         db.collection("groups").
                 addSnapshotListener(object: EventListener<QuerySnapshot>{
                     override fun onEvent(
@@ -103,7 +120,7 @@ class MultiUserFragment : Fragment(), View.OnClickListener {
                         }
                         groupCardAdapter.notifyDataSetChanged()
                     }
-                })*/
+                })
         db.collection("groups")
             .get()
             .addOnSuccessListener { result ->
@@ -117,7 +134,7 @@ class MultiUserFragment : Fragment(), View.OnClickListener {
                 Log.w("MultiUser Fragment", "Error getting documents.", exception)
             }
 
-        /*val docRef = db.collection("groups")
+        val docRef = db.collection("groups")
         docRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -134,6 +151,6 @@ class MultiUserFragment : Fragment(), View.OnClickListener {
             } else {
                 Log.d(TAG, "$source data: null")
             }
-        }*/
-    }
+        }
+    }*/
 }

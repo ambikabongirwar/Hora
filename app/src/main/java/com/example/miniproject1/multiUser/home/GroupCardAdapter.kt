@@ -9,7 +9,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.R
-import com.example.miniproject1.multiUser.ShowGroup
 import java.security.acl.Group
 
 class GroupCardAdapter(private val groupList: ArrayList<Groups>) :

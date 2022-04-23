@@ -7,6 +7,6 @@
         android:icon="@drawable/ic_single_user"/>
 
     <item android:title = "Groups"
-        android:id="@+id/registerFragment"
+        android:id="@+id/registerFragment1"
         android:icon="@drawable/ic_multi_user"/>
 </menu>
