@@ -1,5 +1,6 @@
 package com.example.miniproject1.multiUser
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,16 +10,20 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.miniproject1.GroupActivity
 import com.example.miniproject1.R
+import com.example.miniproject1.multiUser.datasource.GroupNamesDatasource
 import com.example.miniproject1.multiUser.home.GroupCardAdapter
 import com.example.miniproject1.multiUser.model.Group
+import com.example.miniproject1.multiUser.model.ItemsViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class MultiUserFragment1 : Fragment() {
+class MultiUserFragment1 : Fragment(), ItemListener {
 
     private lateinit var navController: NavController
     private lateinit var mAuth: FirebaseAuth
@@ -51,15 +56,31 @@ class MultiUserFragment1 : Fragment() {
             navController.navigate(R.id.action_multiUserFragment1_to_registerFragment1)
         }
 
-        recyclerView = view.findViewById(R.id.rvGroups)
-        groupArrayList = arrayListOf()
-        groupCardAdapter = GroupCardAdapter(groupArrayList)
-        recyclerView.adapter = groupCardAdapter
+        val recyclerview = view.findViewById<RecyclerView>(R.id.rvGroups)
 
-        eventChangeListener()
+        recyclerview.layoutManager = LinearLayoutManager(view.context)
+
+        val groupNames = GroupNamesDatasource(view.context).getGroupNamesList()
+
+        //val groupNames = getData()
+
+        val adapter = CustomAdapter(groupNames, this)
+
+        recyclerview.adapter = adapter
+
+        //eventChangeListener()
+
+
     }
 
-    private fun eventChangeListener() {
+    override fun onClicked(name: String) {
+        val intent = Intent(context, GroupActivity::class.java)
+        intent.putExtra("groupName", name)
+        context?.startActivity(intent)
+        //Toast.makeText(context, "Name is "+name, Toast.LENGTH_SHORT).show()
+    }
+
+    /*private fun eventChangeListener() {
         db = FirebaseFirestore.getInstance()
         db.collection("groups")
             .get()
@@ -73,7 +94,7 @@ class MultiUserFragment1 : Fragment() {
             .addOnFailureListener { exception ->
                 Log.w("MultiUser Fragment", "Error getting documents.", exception)
             }
-    }
+    }*/
 
 
     /*fun getData(): ArrayList<Group> {
