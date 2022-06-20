@@ -1,0 +1,17 @@
+{
+  "GName": "Group 1",
+  "Members": [
+    {
+      "email": "m1@gmail.com",
+      "tasks": [["Task1", false], ["Task2", true], ["Task3", true]]
+    },
+    {
+      "email": "m2@gmail.com",
+      "tasks": [["Task1", false], ["Task2", true], ["Task3", true]]
+    },
+    {
+      "email": "m3@gmail.com",
+      "tasks": [["Task1", false], ["Task2", true], ["Task3", true]]
+    }
+  ]
+}
