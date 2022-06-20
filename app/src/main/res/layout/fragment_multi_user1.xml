@@ -34,9 +34,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvGroups"
+        android:id="@+id/rvGroupNames"
         android:layout_width="match_parent"
-        android:layout_height="640dp"
+        android:layout_height="630dp"
         android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

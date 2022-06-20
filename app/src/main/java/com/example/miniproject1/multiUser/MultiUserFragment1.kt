@@ -56,7 +56,7 @@ class MultiUserFragment1 : Fragment(), ItemListener {
             navController.navigate(R.id.action_multiUserFragment1_to_registerFragment1)
         }
 
-        val recyclerview = view.findViewById<RecyclerView>(R.id.rvGroups)
+        val recyclerview = view.findViewById<RecyclerView>(R.id.rvGroupNames)
 
         recyclerview.layoutManager = LinearLayoutManager(view.context)
 
