@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.miniproject1.multiUser.GroupsAdapter
+import com.example.miniproject1.multiUser.adapters.GroupsAdapter
 import com.example.miniproject1.multiUser.datasource.MembersAndTasksDataSource
 
 class GroupActivity : AppCompatActivity() {
@@ -23,7 +23,7 @@ class GroupActivity : AppCompatActivity() {
 
         val groupNames = MembersAndTasksDataSource(this).getAllMembersAndTasks()
 
-        val adapter = GroupsAdapter(groupNames)
+        val adapter = GroupsAdapter(groupNames, this)
 
         recyclerview.adapter = adapter
     }

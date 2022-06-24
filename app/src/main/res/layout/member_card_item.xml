@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="531dp"
+    android:layout_height="450dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="8dp"
     android:background="@color/white"
@@ -41,40 +41,18 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTasks"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/rv1">
-
-        <Button
-            android:id="@+id/todoBtn"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:text="Todo"
-            app:cornerRadius="20dp"
-            android:backgroundTint="@color/purple_baseline"/>
-        <Button
-            android:id="@+id/doneBtn"
-            android:layout_toEndOf="@+id/todoBtn"
-            android:layout_width="200dp"
-            app:cornerRadius="20dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/purple_baseline"
-            android:text="Done"/>
-    </RelativeLayout>
-
-    <!--<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvGroups"
-        android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="350dp"
         android:layout_margin="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-        tools:listitem="@layout/individual_task_item">
+        app:layout_constraintTop_toBottomOf="@+id/rv1"
+        tools:listitem="@layout/individual_task_item"
+        android:isScrollContainer="true">
 
-    </androidx.recyclerview.widget.RecyclerView>-->
+    </androidx.recyclerview.widget.RecyclerView>
 
     <Button
         android:id="@+id/addTaskBtn"
@@ -82,7 +60,7 @@
         android:layout_height="wrap_content"
         android:text="Add task"
         android:backgroundTint="@color/purple_baseline"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/rvTasks"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

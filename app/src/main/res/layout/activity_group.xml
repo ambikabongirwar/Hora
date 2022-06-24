@@ -35,7 +35,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGroups"
         android:layout_width="match_parent"
-        android:layout_height="620dp"
+        android:layout_height="570dp"
         android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

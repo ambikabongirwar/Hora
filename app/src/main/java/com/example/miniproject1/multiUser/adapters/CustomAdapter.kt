@@ -1,4 +1,4 @@
-package com.example.miniproject1.multiUser
+package com.example.miniproject1.multiUser.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.R
+import com.example.miniproject1.multiUser.ItemListener
 import com.example.miniproject1.multiUser.model.ItemsViewModel
 
 class CustomAdapter(private val mList: List<ItemsViewModel>, val listener : ItemListener) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
