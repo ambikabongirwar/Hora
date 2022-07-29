@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.GroupActivity
 import com.example.miniproject1.R
+import com.example.miniproject1.multiUser.adapters.CustomAdapter
 import com.example.miniproject1.multiUser.datasource.GroupNamesDatasource
 import com.example.miniproject1.multiUser.home.GroupCardAdapter
 import com.example.miniproject1.multiUser.model.Group

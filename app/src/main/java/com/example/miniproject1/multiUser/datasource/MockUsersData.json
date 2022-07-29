@@ -1,0 +1,35 @@
+[
+  {
+    "userId": 1,
+    "Details": [
+      {
+        "Password": "Member1",
+        "First Name": "P1Firstname",
+        "Last Name": "P1Lastname",
+        "Email Address": "m1@gmail.com"
+      }
+    ]
+  },
+  {
+    "userId": 2,
+    "Details": [
+      {
+        "Password": "Member2",
+        "First Name": "P2Firstname",
+        "Last Name": "P2Lastname",
+        "Email Address": "m2@gmail.com"
+      }
+    ]
+  },
+  {
+    "userId": 3,
+    "Details": [
+      {
+        "Password": "Member3",
+        "First Name": "P3Firstname",
+        "Last Name": "P3Lastname",
+        "Email Address": "m3@gmail.com"
+      }
+    ]
+  }
+]

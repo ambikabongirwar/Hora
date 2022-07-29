@@ -2,6 +2,7 @@ package com.example.miniproject1.multiUser.datasource
 
 import android.content.Context
 import android.util.Log
+import androidx.navigation.Navigator
 import com.example.miniproject1.multiUser.model.ItemsViewModel
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -11,6 +12,7 @@ import com.google.firebase.ktx.Firebase
 
 data class GroupNamesDatasource(val context: Context) {
     val TAG = GroupNamesDatasource::class.simpleName
+    val result: ArrayList<ItemsViewModel> = ArrayList()
 
     fun getDataFromFirebase(data: ArrayList<ItemsViewModel>) {
         val db = FirebaseFirestore.getInstance()
@@ -30,7 +32,6 @@ data class GroupNamesDatasource(val context: Context) {
 
     fun getGroupNamesList(): ArrayList<ItemsViewModel> {
         val db = FirebaseFirestore.getInstance()
-        val result: ArrayList<ItemsViewModel> = ArrayList()
         for (i in 1..10) {
             result.add(ItemsViewModel("Group " + i))
         }
