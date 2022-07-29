@@ -12,11 +12,12 @@ import com.google.firebase.ktx.Firebase
 data class GroupNamesDatasource(val context: Context) {
     val TAG = GroupNamesDatasource::class.simpleName
 
-    fun getDataFromFirebase() {
-        /*db.collection("groups")
+    fun getDataFromFirebase(data: ArrayList<ItemsViewModel>) {
+        val db = FirebaseFirestore.getInstance()
+        Log.d(TAG, "Inside data from firebase")
+        db.collection("groups")
             .get()
             .addOnSuccessListener { result ->
-                val data = ArrayList<ItemsViewModel>()
                 for (document in result) {
                     data.add(ItemsViewModel(""+document.data["Name"]))
                     Log.d(TAG, "${document.id} => ${document.data["Name"]}")
@@ -24,7 +25,7 @@ data class GroupNamesDatasource(val context: Context) {
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
-            }*/
+            }
     }
 
     fun getGroupNamesList(): ArrayList<ItemsViewModel> {

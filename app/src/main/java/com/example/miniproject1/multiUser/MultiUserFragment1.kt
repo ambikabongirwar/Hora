@@ -30,8 +30,8 @@ class MultiUserFragment1 : Fragment(), ItemListener {
     lateinit var db: FirebaseFirestore
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var groupArrayList: ArrayList<Group>
-    private lateinit var groupCardAdapter: GroupCardAdapter
+    private lateinit var groupArrayList: ArrayList<ItemsViewModel>
+    private lateinit var customAdapter: CustomAdapter
     var TAG = "MultiUserFragment1"
 
     override fun onCreateView(
@@ -42,6 +42,7 @@ class MultiUserFragment1 : Fragment(), ItemListener {
         val view: View = inflater.inflate(R.layout.fragment_multi_user1, container, false)
         mAuth = FirebaseAuth.getInstance()
         db = Firebase.firestore
+        groupArrayList = ArrayList()
         return view
     }
 
@@ -60,15 +61,17 @@ class MultiUserFragment1 : Fragment(), ItemListener {
 
         recyclerview.layoutManager = LinearLayoutManager(view.context)
 
-        val groupNames = GroupNamesDatasource(view.context).getGroupNamesList()
+        //GroupNamesDatasource(view.context).getDataFromFirebase(groupArrayList)
+        //Log.d(TAG, ""+groupArrayList)
 
         //val groupNames = getData()
 
-        val adapter = CustomAdapter(groupNames, this)
+        //groupArrayList.add(ItemsViewModel(""))
+        customAdapter = CustomAdapter(groupArrayList, this)
 
-        recyclerview.adapter = adapter
+        recyclerview.adapter = customAdapter
 
-        //eventChangeListener()
+        eventChangeListener()
 
 
     }
@@ -80,21 +83,21 @@ class MultiUserFragment1 : Fragment(), ItemListener {
         //Toast.makeText(context, "Name is "+name, Toast.LENGTH_SHORT).show()
     }
 
-    /*private fun eventChangeListener() {
+    private fun eventChangeListener() {
         db = FirebaseFirestore.getInstance()
         db.collection("groups")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    groupArrayList.add(Group(document.data["Name"].toString()))
-                    groupCardAdapter.notifyDataSetChanged()
+                    groupArrayList.add(ItemsViewModel(document.data["Name"].toString()))
+                    customAdapter.notifyDataSetChanged()
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w("MultiUser Fragment", "Error getting documents.", exception)
             }
-    }*/
+    }
 
 
     /*fun getData(): ArrayList<Group> {
