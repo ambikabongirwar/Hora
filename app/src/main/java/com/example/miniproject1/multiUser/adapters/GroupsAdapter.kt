@@ -22,7 +22,7 @@ class GroupsAdapter(private val mList: List<MembersAndTasksModel>, val listener:
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(mList[position].emailId, mList[position].tasks)
+        mList[position].tasks?.let { holder.bind(mList[position].emailId, it) }
     }
 
     override fun getItemCount(): Int {

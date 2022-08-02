@@ -87,6 +87,7 @@ class RegisterFragment1 : Fragment() {
                         userMap["First Name"] = firstName
                         userMap["Last Name"] = lastName
                         userMap["Email Address"] = email
+                        userMap["Temp"] = "password"
                         db.collection("users")
                             .add(userMap)
                             .addOnSuccessListener { documentReference ->

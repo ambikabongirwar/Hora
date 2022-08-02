@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.R
 import java.security.acl.Group
 
-class GroupCardAdapter(private val groupList: ArrayList<com.example.miniproject1.multiUser.model.Group>) :
+class GroupCardAdapter(private val groupList: ArrayList<Group>) :
     RecyclerView.Adapter<GroupCardAdapter.myViewHolder>(){
 
     private lateinit var mListener: onItemClickListener
@@ -30,7 +30,7 @@ class GroupCardAdapter(private val groupList: ArrayList<com.example.miniproject1
     }
 
     override fun onBindViewHolder(holder: GroupCardAdapter.myViewHolder, position: Int) {
-        val group: com.example.miniproject1.multiUser.model.Group = groupList[position]
+        val group: Group = groupList[position]
         holder.groupName.text = group.name
     }
 

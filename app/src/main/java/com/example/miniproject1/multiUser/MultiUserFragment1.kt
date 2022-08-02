@@ -1,13 +1,19 @@
 package com.example.miniproject1.multiUser
 
+import android.accessibilityservice.GestureDescription
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,20 +21,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.GroupActivity
 import com.example.miniproject1.R
 import com.example.miniproject1.multiUser.adapters.CustomAdapter
-import com.example.miniproject1.multiUser.datasource.GroupNamesDatasource
-import com.example.miniproject1.multiUser.home.GroupCardAdapter
 import com.example.miniproject1.multiUser.model.Group
 import com.example.miniproject1.multiUser.model.ItemsViewModel
+import com.example.miniproject1.multiUser.model.MembersAndTasksModel
+import com.firebase.ui.auth.AuthUI.getApplicationContext
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+
 
 class MultiUserFragment1 : Fragment(), ItemListener {
 
     private lateinit var navController: NavController
     private lateinit var mAuth: FirebaseAuth
     lateinit var db: FirebaseFirestore
+    lateinit var email: String
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var groupArrayList: ArrayList<ItemsViewModel>
@@ -56,6 +65,24 @@ class MultiUserFragment1 : Fragment(), ItemListener {
         logOutBtn.setOnClickListener {
             FirebaseAuth.getInstance().signOut();
             navController.navigate(R.id.action_multiUserFragment1_to_registerFragment1)
+        }
+
+        val newGroupBtn: FloatingActionButton = view.findViewById(R.id.newGroup)
+        newGroupBtn.setOnClickListener{
+            //al builder1 = AlertDialog.Builder(context)
+            //builder.setTitle("Enter Group Name:")
+
+            val getGroupNameDialogView = LayoutInflater.from(context).inflate(R.layout.simple_et,null)
+            //val getGroupNameDialogView = layoutInflater.inflate(R.layout.simple_et,null)
+            val builder = AlertDialog.Builder(context).setView(getGroupNameDialogView).setTitle("Enter Group Name: ")
+            val alertDialog = builder.show()
+            getGroupNameDialogView.findViewById<Button>(R.id.createGroupWithNameBtn).setOnClickListener {
+                val groupName = getGroupNameDialogView.findViewById<EditText>(R.id.etNewGroupName).text.toString()
+                addGroupName(groupName);
+                Toast.makeText(context,
+                    ""+groupName , Toast.LENGTH_SHORT).show()
+                alertDialog.dismiss()
+            }
         }
 
         val recyclerview = view.findViewById<RecyclerView>(R.id.rvGroupNames)
@@ -90,7 +117,10 @@ class MultiUserFragment1 : Fragment(), ItemListener {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    groupArrayList.add(ItemsViewModel(document.data["Name"].toString()))
+                    if (document.data["Name"].toString() != "null")
+                        groupArrayList.add(ItemsViewModel(document.data["Name"].toString()))
+                    else
+                        groupArrayList.add(ItemsViewModel(document.data["name"].toString()))
                     customAdapter.notifyDataSetChanged()
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                 }
@@ -100,6 +130,24 @@ class MultiUserFragment1 : Fragment(), ItemListener {
             }
     }
 
+    private fun addGroupName(GroupName: String) {
+        db = FirebaseFirestore.getInstance()
+        val user = mAuth.currentUser
+        user.let { email = user?.email.toString() }
+        Log.d(TAG, "Email id of current user: " + email)
+        val arr : ArrayList<MembersAndTasksModel> = ArrayList()
+        arr.add(MembersAndTasksModel(email))
+        val newGroup = Group(GroupName, arr)
+        db.collection("groups")
+            .add(newGroup)
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+                customAdapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
+    }
 
     /*fun getData(): ArrayList<Group> {
         val db = Firebase.firestore
