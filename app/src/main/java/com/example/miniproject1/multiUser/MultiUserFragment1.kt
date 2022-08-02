@@ -69,11 +69,7 @@ class MultiUserFragment1 : Fragment(), ItemListener {
 
         val newGroupBtn: FloatingActionButton = view.findViewById(R.id.newGroup)
         newGroupBtn.setOnClickListener{
-            //al builder1 = AlertDialog.Builder(context)
-            //builder.setTitle("Enter Group Name:")
-
             val getGroupNameDialogView = LayoutInflater.from(context).inflate(R.layout.simple_et,null)
-            //val getGroupNameDialogView = layoutInflater.inflate(R.layout.simple_et,null)
             val builder = AlertDialog.Builder(context).setView(getGroupNameDialogView).setTitle("Enter Group Name: ")
             val alertDialog = builder.show()
             getGroupNameDialogView.findViewById<Button>(R.id.createGroupWithNameBtn).setOnClickListener {
@@ -88,13 +84,6 @@ class MultiUserFragment1 : Fragment(), ItemListener {
         val recyclerview = view.findViewById<RecyclerView>(R.id.rvGroupNames)
 
         recyclerview.layoutManager = LinearLayoutManager(view.context)
-
-        //GroupNamesDatasource(view.context).getDataFromFirebase(groupArrayList)
-        //Log.d(TAG, ""+groupArrayList)
-
-        //val groupNames = getData()
-
-        //groupArrayList.add(ItemsViewModel(""))
         customAdapter = CustomAdapter(groupArrayList, this)
 
         recyclerview.adapter = customAdapter
@@ -117,10 +106,7 @@ class MultiUserFragment1 : Fragment(), ItemListener {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    if (document.data["Name"].toString() != "null")
-                        groupArrayList.add(ItemsViewModel(document.data["Name"].toString()))
-                    else
-                        groupArrayList.add(ItemsViewModel(document.data["name"].toString()))
+                    groupArrayList.add(ItemsViewModel(document.data["name"].toString()))
                     customAdapter.notifyDataSetChanged()
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                 }
