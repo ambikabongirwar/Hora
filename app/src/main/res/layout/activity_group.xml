@@ -41,7 +41,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:layout_constraintBottom_toTopOf="@+id/newParticipant"
-        tools:listitem="@layout/member_card_item"/>
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/group_card_item"/>
 
     <!--<androidx.cardview.widget.CardView
         android:layout_width="409dp"

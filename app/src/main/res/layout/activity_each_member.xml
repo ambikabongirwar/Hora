@@ -7,11 +7,11 @@
     tools:context=".EachMemberActivity">
 
     <TextView
-        android:id="@+id/groupNametv"
+        android:id="@+id/memberEmailtv"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/purple_baseline"
-        android:text="Member Name"
+        android:text="Member Email"
         android:textColor="@color/light_blue"
         android:textSize="35dp"
         app:layout_constraintEnd_toEndOf="parent"
