@@ -45,6 +45,18 @@ class GroupActivity : AppCompatActivity(), ItemListener {
 
         recyclerview.adapter = adapter
         getData()
+
+        val newMemberBtn: FloatingActionButton = findViewById(R.id.newParticipant)
+        newMemberBtn.setOnClickListener{
+            val getGroupNameDialogView = LayoutInflater.from(this).inflate(R.layout.simple_et,null)
+            val builder = AlertDialog.Builder(this).setView(getGroupNameDialogView).setTitle("Enter Valid Email Address: ")
+            val alertDialog = builder.show()
+            getGroupNameDialogView.findViewById<Button>(R.id.createGroupWithNameBtn).setOnClickListener {
+                val memberEmail = getGroupNameDialogView.findViewById<EditText>(R.id.etNewGroupName).text.toString()
+                verifyAndAddMember(memberEmail);
+                alertDialog.dismiss()
+            }
+        }
     }
 
     override fun onClicked(emailId: String) {
@@ -72,7 +84,81 @@ class GroupActivity : AppCompatActivity(), ItemListener {
                 }
             }
             .addOnFailureListener { exception ->
-                Log.w("Group Activity Fragment", "Error getting documents.", exception)
+                Log.w(TAG, "Error getting documents.", exception)
+            }
+    }
+
+    fun verifyAndAddMember(memberEmail: String) {
+        db = FirebaseFirestore.getInstance()
+        //Checking if the email address is valid:
+        db.collection("users").whereEqualTo("Email Address", memberEmail)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.size() > 0) {
+                    //Checking if the person is already a part of the group:
+                    db.collection("groups")
+                        .whereEqualTo("name", groupName)
+                        .get()
+                        .addOnSuccessListener { result ->
+                            for (document in result) {
+                                var participants = document.data["participants"].toString()
+                                participants = participants.slice(1..participants.length - 2)
+                                Log.d(TAG, "DocumentSnapshot Particpants data before adding member email: ${participants}")
+                                var alreadyMember: Boolean = false
+                                var membersList: ArrayList<String> = ArrayList()
+                                for (member in participants.split(",")) {
+                                    membersList.add(member)
+                                    if (member === memberEmail) {
+                                        alreadyMember = true
+                                        Toast.makeText(this, memberEmail + " is already a member of this group. Please add new member.", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                                if (!alreadyMember) {
+                                    membersList.add(memberEmail)
+                                    Log.d(TAG, "Members: " + membersList)
+                                    db.collection("groups").document(document.id)
+                                        .update("participants", membersList)
+                                        .addOnSuccessListener {
+                                            Log.d(TAG, "DocumentSnapshot successfully updated!")
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.w(TAG, "Error updating document", e)
+                                        }
+                                } else {
+                                    Toast.makeText(this, memberEmail + " is already a member of this group. Please add new member.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                            /*if (result.size() > 0) {
+                                Toast.makeText(this, memberEmail + " is already a member of this group. Please add new member.", Toast.LENGTH_SHORT).show()
+                            }
+                            else {
+                                for (document in result) {
+                                    var participants = document.data["participants"].toString()
+                                    participants = participants.slice(1..participants.length - 2)
+                                    Log.d(TAG, "DocumentSnapshot Particpants data before adding member email: ${participants}")
+                                    for (member in participants.split(",")) {
+                                        membersArrayList.add(ItemsViewModel(member))
+                                    }
+                                    membersArrayList.add(ItemsViewModel(memberEmail))
+                                    Log.d(TAG, "Members: " + membersArrayList)
+                                    db.collection("groups").document(document.id)
+                                        .update("participants", membersArrayList)
+                                        .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
+                                        .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+
+                                }*/
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.w(TAG, "Error getting documents.", exception)
+                        }
+                        }
+                else {
+                    Toast.makeText(this, "User with email address " + memberEmail + " doesn't exist.", Toast.LENGTH_SHORT).show();
+                }
+                    Toast.makeText(this, "Valid email address", Toast.LENGTH_SHORT).show()
+                }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
             }
     }
 }
