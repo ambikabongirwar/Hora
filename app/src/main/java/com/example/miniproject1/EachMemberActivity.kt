@@ -1,17 +1,13 @@
 package com.example.miniproject1
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.multiUser.ItemListener
 import com.example.miniproject1.multiUser.adapters.EachMemberTaskAdapter
-import com.example.miniproject1.multiUser.datasource.TasksDataSource
-import com.example.miniproject1.multiUser.model.ItemsViewModel
 import com.example.miniproject1.multiUser.model.TaskModel
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -73,25 +69,6 @@ class EachMemberActivity : AppCompatActivity(), ItemListener {
                 Log.d(TAG, "Inside getData function, taskList: " + taskList)
             }
             .addOnFailureListener{ exception ->
-                Log.w(TAG, "Error getting documents.", exception)
-            }
-    }
-
-    fun eventChangeListener() {
-        TasksDataSource(taskList).getAllTasks()
-        db = FirebaseFirestore.getInstance()
-        db.collection("members")
-            .whereEqualTo("groupName", groupName)
-            .whereEqualTo("emailId", memberEmail)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val taskName: String = "tasks." + "task3"
-                    db.collection("members").document(document.id).update(mapOf(taskName to false))
-                    Log.d(TAG, "" + document.data["tasks"])
-                }
-            }
-            .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
     }
