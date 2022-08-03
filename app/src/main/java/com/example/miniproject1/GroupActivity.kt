@@ -1,15 +1,21 @@
 package com.example.miniproject1
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.multiUser.ItemListener
 import com.example.miniproject1.multiUser.adapters.GroupsAdapter
 import com.example.miniproject1.multiUser.model.ItemsViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
 
 class GroupActivity : AppCompatActivity(), ItemListener {
@@ -38,7 +44,7 @@ class GroupActivity : AppCompatActivity(), ItemListener {
         adapter = GroupsAdapter(membersArrayList, this)
 
         recyclerview.adapter = adapter
-        eventChangeListener()
+        getData()
     }
 
     override fun onClicked(emailId: String) {
@@ -49,7 +55,7 @@ class GroupActivity : AppCompatActivity(), ItemListener {
         startActivity(intent)
     }
 
-    private fun eventChangeListener() {
+    private fun getData() {
         db = FirebaseFirestore.getInstance()
         db.collection("groups")
             .whereEqualTo("name", groupName)

@@ -1,18 +1,21 @@
 package com.example.miniproject1
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.miniproject1.multiUser.ItemListener
 import com.example.miniproject1.multiUser.adapters.EachMemberTaskAdapter
 import com.example.miniproject1.multiUser.datasource.TasksDataSource
 import com.example.miniproject1.multiUser.model.ItemsViewModel
 import com.example.miniproject1.multiUser.model.TaskModel
 import com.google.firebase.firestore.FirebaseFirestore
 
-class EachMemberActivity : AppCompatActivity() {
+class EachMemberActivity : AppCompatActivity(), ItemListener {
 
     lateinit var db: FirebaseFirestore
 
@@ -39,34 +42,77 @@ class EachMemberActivity : AppCompatActivity() {
 
         taskList = ArrayList()
 
-        adapter = EachMemberTaskAdapter(taskList)
+        adapter = EachMemberTaskAdapter(taskList, this)
 
         recyclerview.adapter = adapter
-        eventChangeListener()
+        getData()
+        Log.d(TAG, "After calling getData function, inside onCreate, taskList: " + taskList)
     }
 
-    private fun eventChangeListener() {
-        TasksDataSource(taskList).getAllTasks()
+    fun getData() {
         db = FirebaseFirestore.getInstance()
-        db.collection("groups")
+        db.collection("members")
             .whereEqualTo("groupName", groupName)
             .whereEqualTo("emailId", memberEmail)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    Log.d(TAG, "" + document.data)
-                    /*
-                    var participants = document.data["participants"].toString()
-                    participants = participants.slice(1..participants.length - 2)
-                    Log.d(TAG, "DocumentSnapshot Particpants data: ${participants}")
-                    for (member in participants.split(",")) {
-                        membersArrayList.add(ItemsViewModel(member))
+                    var tasks = document.data["tasks"].toString()
+                    tasks = tasks.slice(1..tasks.length - 2)
+                    for (taskStatus in tasks.split(", ")) {
+                        val taskAndStatus = taskStatus.split("=")
+                        var status: Boolean
+                        if (taskAndStatus[1] == "true")
+                            status = true
+                        else
+                            status = false
+                        taskList.add(TaskModel(taskAndStatus[0], status))
                     }
-                    adapter.notifyDataSetChanged()*/
+                }
+                adapter.notifyDataSetChanged()
+                Log.d(TAG, "Inside getData function, taskList: " + taskList)
+            }
+            .addOnFailureListener{ exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
+    }
+
+    fun eventChangeListener() {
+        TasksDataSource(taskList).getAllTasks()
+        db = FirebaseFirestore.getInstance()
+        db.collection("members")
+            .whereEqualTo("groupName", groupName)
+            .whereEqualTo("emailId", memberEmail)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val taskName: String = "tasks." + "task3"
+                    db.collection("members").document(document.id).update(mapOf(taskName to false))
+                    Log.d(TAG, "" + document.data["tasks"])
                 }
             }
             .addOnFailureListener { exception ->
-                Log.w("Group Activity Fragment", "Error getting documents.", exception)
+                Log.w(TAG, "Error getting documents.", exception)
+            }
+    }
+
+    override fun onClicked(position: String) {
+        val pos: Int = position.toInt()
+        //Toast.makeText(this, "Item at " + pos.toString() + " clicked", Toast.LENGTH_SHORT).show()
+        db = FirebaseFirestore.getInstance()
+        db.collection("members")
+            .whereEqualTo("groupName", groupName)
+            .whereEqualTo("emailId", memberEmail)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val taskName: String = "tasks." + taskList[pos].task
+                    db.collection("members").document(document.id).update(mapOf(taskName to !taskList[pos].status))
+                    Log.d(TAG, "Task Name: " + taskName + " Status: " + taskList[pos].status)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
             }
     }
 }
