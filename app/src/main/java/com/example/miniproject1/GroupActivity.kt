@@ -128,25 +128,6 @@ class GroupActivity : AppCompatActivity(), ItemListener {
                                     Toast.makeText(this, memberEmail + " is already a member of this group. Please add new member.", Toast.LENGTH_SHORT).show()
                                 }
                             }
-                            /*if (result.size() > 0) {
-                                Toast.makeText(this, memberEmail + " is already a member of this group. Please add new member.", Toast.LENGTH_SHORT).show()
-                            }
-                            else {
-                                for (document in result) {
-                                    var participants = document.data["participants"].toString()
-                                    participants = participants.slice(1..participants.length - 2)
-                                    Log.d(TAG, "DocumentSnapshot Particpants data before adding member email: ${participants}")
-                                    for (member in participants.split(",")) {
-                                        membersArrayList.add(ItemsViewModel(member))
-                                    }
-                                    membersArrayList.add(ItemsViewModel(memberEmail))
-                                    Log.d(TAG, "Members: " + membersArrayList)
-                                    db.collection("groups").document(document.id)
-                                        .update("participants", membersArrayList)
-                                        .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-                                        .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
-
-                                }*/
                         }
                         .addOnFailureListener { exception ->
                             Log.w(TAG, "Error getting documents.", exception)
