@@ -57,11 +57,7 @@ class EachMemberActivity : AppCompatActivity(), ItemListener {
                     tasks = tasks.slice(1..tasks.length - 2)
                     for (taskStatus in tasks.split(", ")) {
                         val taskAndStatus = taskStatus.split("=")
-                        var status: Boolean
-                        if (taskAndStatus[1] == "true")
-                            status = true
-                        else
-                            status = false
+                        var status: Boolean = taskAndStatus[1] == "true"
                         taskList.add(TaskModel(taskAndStatus[0], status))
                     }
                 }
