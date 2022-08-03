@@ -60,6 +60,9 @@ class MultiUserFragment1 : Fragment(), ItemListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
+        val user = mAuth.currentUser
+        user.let { email = user?.email.toString() }
+
         Log.d(TAG, "onViewCreated")
         val logOutBtn: ImageButton = view.findViewById(R.id.ibLogOut)
         logOutBtn.setOnClickListener {
@@ -103,6 +106,7 @@ class MultiUserFragment1 : Fragment(), ItemListener {
     private fun eventChangeListener() {
         db = FirebaseFirestore.getInstance()
         db.collection("groups")
+            .whereArrayContainsAny("participants", listOf(email))
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -118,11 +122,9 @@ class MultiUserFragment1 : Fragment(), ItemListener {
 
     private fun addGroupName(GroupName: String) {
         db = FirebaseFirestore.getInstance()
-        val user = mAuth.currentUser
-        user.let { email = user?.email.toString() }
         Log.d(TAG, "Email id of current user: " + email)
-        val arr : ArrayList<MembersAndTasksModel> = ArrayList()
-        arr.add(MembersAndTasksModel(email))
+        val arr : ArrayList<String> = ArrayList()
+        arr.add(email)
         val newGroup = Group(GroupName, arr)
         db.collection("groups")
             .add(newGroup)
