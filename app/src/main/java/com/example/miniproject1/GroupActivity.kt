@@ -118,8 +118,10 @@ class GroupActivity : AppCompatActivity(), ItemListener {
                     var participants = document.data["participants"].toString()
                     participants = participants.slice(1..participants.length - 2)
                     Log.d(TAG, "DocumentSnapshot Particpants data: ${participants}")
-                    for (member in participants.split(",")) {
-                        membersArrayList.add(ItemsViewModel(member))
+                    if (participants != "") {
+                        for (member in participants.split(",")) {
+                            membersArrayList.add(ItemsViewModel(member))
+                        }
                     }
                     adapter.notifyDataSetChanged()
                 }
@@ -142,32 +144,10 @@ class GroupActivity : AppCompatActivity(), ItemListener {
                         .get()
                         .addOnSuccessListener { result ->
                             for (document in result) {
-                                var participants = document.data["participants"].toString()
-                                participants = participants.slice(1..participants.length - 2)
-                                Log.d(TAG, "DocumentSnapshot Particpants data before adding member email: ${participants}")
-                                var alreadyMember: Boolean = false
-                                var membersList: ArrayList<String> = ArrayList()
-                                for (member in participants.split(",")) {
-                                    membersList.add(member)
-                                    if (member === memberEmail) {
-                                        alreadyMember = true
-                                        Toast.makeText(this, memberEmail + " is already a member of this group. Please add new member.", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
-                                if (!alreadyMember) {
-                                    membersList.add(memberEmail)
-                                    Log.d(TAG, "Members: " + membersList)
-                                    db.collection("groups").document(document.id)
-                                        .update("participants", membersList)
-                                        .addOnSuccessListener {
-                                            Log.d(TAG, "DocumentSnapshot successfully updated!")
-                                        }
-                                        .addOnFailureListener { e ->
-                                            Log.w(TAG, "Error updating document", e)
-                                        }
-                                } else {
-                                    Toast.makeText(this, memberEmail + " is already a member of this group. Please add new member.", Toast.LENGTH_SHORT).show()
-                                }
+                                db.collection("groups").document(document.id)
+                                    .update("participants", FieldValue.arrayUnion(memberEmail))
+                                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                                    .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
                             }
                         }
                         .addOnFailureListener { exception ->
