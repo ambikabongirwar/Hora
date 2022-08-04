@@ -3,13 +3,16 @@ package com.example.miniproject1.multiUser.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.R
 import com.example.miniproject1.multiUser.ItemListener
+import com.example.miniproject1.multiUser.MultiUserFragment1
 import com.example.miniproject1.multiUser.model.ItemsViewModel
 
-class CustomAdapter(private val mList: List<ItemsViewModel>, val listener : ItemListener) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val mList: List<ItemsViewModel>, val listener : MultiUserFragment1) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,7 +26,7 @@ class CustomAdapter(private val mList: List<ItemsViewModel>, val listener : Item
 
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(mList[position].text, listener)
+        holder.bind(mList[position].text, mList[position].delete, listener)
 
     }
 
@@ -33,11 +36,13 @@ class CustomAdapter(private val mList: List<ItemsViewModel>, val listener : Item
     }
 
     // Holds the views for adding it to image and text
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.findViewById(R.id.textView)
-        fun bind(groupName: String, listener: ItemListener) {
+        val deleteBtn: ImageButton = itemView.findViewById(R.id.ibDelete)
+        fun bind(groupName: String, delete: Boolean, listener: ItemListener) {
             textView.text = groupName
             textView.setOnClickListener{itemView -> listener.onClicked(groupName)}
+            deleteBtn.setOnClickListener{itemView -> listener.onClicked(groupName + "Delete")}
         }
     }
 }

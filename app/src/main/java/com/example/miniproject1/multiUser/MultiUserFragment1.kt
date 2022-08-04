@@ -27,6 +27,7 @@ import com.example.miniproject1.multiUser.model.MembersAndTasksModel
 import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -97,10 +98,57 @@ class MultiUserFragment1 : Fragment(), ItemListener {
     }
 
     override fun onClicked(name: String) {
-        val intent = Intent(context, GroupActivity::class.java)
-        intent.putExtra("groupName", name)
-        context?.startActivity(intent)
-        //Toast.makeText(context, "Name is "+name, Toast.LENGTH_SHORT).show()
+        var name = name.trim()
+        //Toast.makeText(context, "abc" + name.slice((name.length-6)..name.length-1), Toast.LENGTH_SHORT).show()
+        if (name.length > 6 && name.slice((name.length-6)..name.length-1) == "Delete") {
+            Toast.makeText(context, name.slice(0..name.length-7) + " deleted", Toast.LENGTH_SHORT).show()
+            //Deleting all tasks from members collection
+            db.collection("members")
+                .whereEqualTo("groupName", name.slice(0..name.length-7))
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        //Toast.makeText(this, "Document exists", Toast.LENGTH_SHORT).show()
+                        db.collection("members").document(document.id)
+                            .delete()
+                            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents.", exception)
+                }
+
+            //Deleting the group from groups collection
+            db.collection("groups")
+                .whereEqualTo("name", name.slice(0..name.length-7))
+                .whereArrayContains("participants", email)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        //Toast.makeText(this, "Document exists", Toast.LENGTH_SHORT).show()
+                        db.collection("groups").document(document.id)
+                            .delete()
+                            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents.", exception)
+                }
+        }
+        else {
+            val intent = Intent(context, GroupActivity::class.java)
+            intent.putExtra("groupName", name)
+            context?.startActivity(intent)
+            //Toast.makeText(context, "Name is "+name, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun onDeleteClicked(groupName: String) {
+        //Deleting all tasks from members collection
+
+        //Deleting the group from groups collection
     }
 
     private fun eventChangeListener() {
