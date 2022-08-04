@@ -65,10 +65,9 @@ class MultiUserFragment1 : Fragment(), ItemListener {
         user.let { email = user?.email.toString() }
 
         Log.d(TAG, "onViewCreated")
-        val logOutBtn: ImageButton = view.findViewById(R.id.ibLogOut)
+        val logOutBtn: ImageButton = view.findViewById(R.id.ibProfile)
         logOutBtn.setOnClickListener {
-            FirebaseAuth.getInstance().signOut();
-            navController.navigate(R.id.action_multiUserFragment1_to_registerFragment1)
+            navController.navigate(R.id.action_multiUserFragment1_to_profileFragment)
         }
 
         val newGroupBtn: FloatingActionButton = view.findViewById(R.id.newGroup)
@@ -143,12 +142,6 @@ class MultiUserFragment1 : Fragment(), ItemListener {
             context?.startActivity(intent)
             //Toast.makeText(context, "Name is "+name, Toast.LENGTH_SHORT).show()
         }
-    }
-
-    fun onDeleteClicked(groupName: String) {
-        //Deleting all tasks from members collection
-
-        //Deleting the group from groups collection
     }
 
     private fun eventChangeListener() {

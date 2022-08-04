@@ -86,8 +86,8 @@
         android:label="fragment_multi_user1"
         tools:layout="@layout/fragment_multi_user1" >
         <action
-            android:id="@+id/action_multiUserFragment1_to_registerFragment1"
-            app:destination="@id/registerFragment1" />
+            android:id="@+id/action_multiUserFragment1_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment1"
@@ -98,6 +98,15 @@
             app:destination="@id/multiUserFragment1" />
         <action
             android:id="@+id/action_loginFragment1_to_registerFragment1"
+            app:destination="@id/registerFragment1" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.miniproject1.multiUser.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_registerFragment1"
             app:destination="@id/registerFragment1" />
     </fragment>
 

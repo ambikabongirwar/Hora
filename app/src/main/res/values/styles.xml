@@ -6,6 +6,12 @@
         <item name="color">@color/light_pink</item>
     </style>
 
+    <style name="round_profile">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="color">@color/light_pink</item>
+    </style>
+
     <style name="BottomNavigation">
         <item name="android:background">@color/purple_baseline</item>
         <item name="itemIconTint">@color/light_blue</item>

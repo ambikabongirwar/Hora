@@ -9,13 +9,13 @@
     tools:context=".multiUser.MultiUserFragment1">
 
     <ImageButton
-        android:id="@+id/ibLogOut"
+        android:id="@+id/ibProfile"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:background="@color/purple_baseline"
         android:contentDescription="@string/logout"
         android:minWidth="32dp"
-        android:src="@drawable/ic_outline_exit_to_app_24"
+        android:src="@drawable/ic_single_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
