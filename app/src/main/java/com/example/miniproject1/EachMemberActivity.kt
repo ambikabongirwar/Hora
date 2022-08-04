@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.multiUser.ItemListener
 import com.example.miniproject1.multiUser.adapters.EachMemberTaskAdapter
+import com.example.miniproject1.multiUser.model.NamesViewModel
 import com.example.miniproject1.multiUser.model.TaskModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FieldValue
@@ -39,7 +40,21 @@ class EachMemberActivity : AppCompatActivity(), ItemListener {
         memberEmail = intent.getStringExtra("emailId").toString()
 
         val memberTv = findViewById<TextView>(R.id.memberEmailtv)
-        memberTv.text = memberEmail
+        db = FirebaseFirestore.getInstance()
+        db.collection("users")
+            .whereEqualTo("Email Address", memberEmail)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    var name =
+                        document.data["First Name"].toString() + " " + document.data["Last Name"].toString()
+                    //Toast.makeText(this, "" + name + ": " + member, Toast.LENGTH_SHORT).show()
+                    memberTv.text = name
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
 
         val recyclerview = findViewById<RecyclerView>(R.id.rvTasks)
         recyclerview.layoutManager = LinearLayoutManager(this)

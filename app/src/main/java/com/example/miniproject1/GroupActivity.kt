@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.multiUser.ItemListener
 import com.example.miniproject1.multiUser.adapters.GroupsAdapter
 import com.example.miniproject1.multiUser.model.ItemsViewModel
+import com.example.miniproject1.multiUser.model.NamesViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -22,10 +23,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class GroupActivity : AppCompatActivity(), ItemListener {
 
-    private lateinit var membersArrayList: ArrayList<ItemsViewModel>
+    lateinit var namesAndEmailArrayList: ArrayList<NamesViewModel>
     lateinit var db: FirebaseFirestore
     private lateinit var mAuth: FirebaseAuth
     lateinit var email: String
+    lateinit var name: String
 
     lateinit var groupName: String
     private lateinit var adapter: GroupsAdapter
@@ -47,9 +49,9 @@ class GroupActivity : AppCompatActivity(), ItemListener {
         recyclerview.layoutManager = LinearLayoutManager(this)
         recyclerview.setHasFixedSize(true)
 
-        membersArrayList = ArrayList()
+        namesAndEmailArrayList = ArrayList()
 
-        adapter = GroupsAdapter(membersArrayList, this)
+        adapter = GroupsAdapter(namesAndEmailArrayList, this)
 
         recyclerview.adapter = adapter
         getData()
@@ -189,10 +191,23 @@ class GroupActivity : AppCompatActivity(), ItemListener {
                     Log.d(TAG, "DocumentSnapshot Particpants data: ${participants}")
                     if (participants != "") {
                         for (member in participants.split(",")) {
-                            membersArrayList.add(ItemsViewModel(member))
+                            var member = member.trim()
+                            db.collection("users")
+                                .whereEqualTo("Email Address", member)
+                                .get()
+                                .addOnSuccessListener { result ->
+                                    for (document in result) {
+                                        name = document.data["First Name"].toString() + " " + document.data["Last Name"].toString()
+                                        //Toast.makeText(this, "" + name + ": " + member, Toast.LENGTH_SHORT).show()
+                                        namesAndEmailArrayList.add(NamesViewModel(member, name))
+                                    }
+                                    adapter.notifyDataSetChanged()
+                                }
+                                .addOnFailureListener { exception ->
+                                    Log.w(TAG, "Error getting documents.", exception)
+                                }
                         }
                     }
-                    adapter.notifyDataSetChanged()
                 }
             }
             .addOnFailureListener { exception ->
