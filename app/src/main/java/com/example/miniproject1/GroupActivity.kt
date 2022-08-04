@@ -69,8 +69,9 @@ class GroupActivity : AppCompatActivity(), ItemListener {
     }
 
     fun onDeleteClicked(memberEmail: String) {
-        Toast.makeText(this, memberEmail + " deleted", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, memberEmail + " deleted", Toast.LENGTH_SHORT).show()
         db = FirebaseFirestore.getInstance()
+        var memberEmail = memberEmail.trim()
 
         //Deleting all documents in the group having email as the email of user to delete from members collection
         db.collection("members")
@@ -153,12 +154,11 @@ class GroupActivity : AppCompatActivity(), ItemListener {
                         .addOnFailureListener { exception ->
                             Log.w(TAG, "Error getting documents.", exception)
                         }
-                        }
+                }
                 else {
                     Toast.makeText(this, "User with email address " + memberEmail + " doesn't exist.", Toast.LENGTH_SHORT).show();
                 }
-                    Toast.makeText(this, "Valid email address", Toast.LENGTH_SHORT).show()
-                }
+            }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
