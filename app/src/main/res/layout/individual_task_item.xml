@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
         <TextView
             android:id="@+id/textView"
-            android:layout_width="300dp"
+            android:layout_width="290dp"
             android:layout_height="45dp"
             android:padding="10dp"
             android:text="Item"
@@ -36,6 +36,18 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
+        <ImageButton
+            android:id="@+id/ibDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:contentDescription="@string/delete_task"
+            android:minWidth="50dp"
+            android:src="@drawable/ic_delete"
+            android:background="@color/white"
+            android:layout_toEndOf="@+id/checkBox2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </RelativeLayout>
 

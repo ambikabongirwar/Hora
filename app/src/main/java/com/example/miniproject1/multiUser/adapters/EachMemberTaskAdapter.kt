@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.EachMemberActivity
@@ -19,7 +20,7 @@ class EachMemberTaskAdapter(private val mList: List<TaskModel>, val listener: Ea
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(mList[position].task, mList[position].status, position, listener)
+        holder.bind(mList[position].task, mList[position].status, mList[position].delete, position, listener)
     }
 
     override fun getItemCount(): Int {
@@ -29,10 +30,12 @@ class EachMemberTaskAdapter(private val mList: List<TaskModel>, val listener: Ea
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val taskTv: TextView = itemView.findViewById(R.id.textView)
         val statusCb: CheckBox = itemView.findViewById(R.id.checkBox2)
-        fun bind(task: String, status: Boolean, position: Int, listener: EachMemberActivity) {
+        val deleteIb: ImageButton = itemView.findViewById(R.id.ibDelete)
+        fun bind(task: String, status: Boolean, delete: Boolean, position: Int, listener: EachMemberActivity) {
             taskTv.text = task
             statusCb.isChecked = status
             statusCb.setOnClickListener { itemView -> listener.onClicked(task) }
+            deleteIb.setOnClickListener{itemView -> listener.onDeleteClicked(task, position)}
         }
     }
 }
