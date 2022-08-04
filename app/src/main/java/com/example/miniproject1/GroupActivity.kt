@@ -12,9 +12,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.miniproject1.multiUser.ItemListener
 import com.example.miniproject1.multiUser.adapters.GroupsAdapter
-import com.example.miniproject1.multiUser.model.ItemsViewModel
 import com.example.miniproject1.multiUser.model.NamesViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
@@ -29,6 +29,7 @@ class GroupActivity : AppCompatActivity(), ItemListener {
     lateinit var email: String
     lateinit var name: String
 
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
     lateinit var groupName: String
     private lateinit var adapter: GroupsAdapter
     var TAG = "GroupActivity"
@@ -66,6 +67,17 @@ class GroupActivity : AppCompatActivity(), ItemListener {
                 verifyAndAddMember(memberEmail);
                 alertDialog.dismiss()
             }
+        }
+
+        swipeRefreshLayout = findViewById(R.id.container)
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false
+            val i = Intent(this, GroupActivity::class.java)
+            i.putExtra("groupName", groupName)
+            finish()
+            overridePendingTransition(0, 0)
+            startActivity(i)
+            overridePendingTransition(0, 0)
         }
     }
 

@@ -1,9 +1,8 @@
 package com.example.miniproject1.multiUser
 
-import android.accessibilityservice.GestureDescription
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,23 +13,23 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.miniproject1.GroupActivity
 import com.example.miniproject1.R
 import com.example.miniproject1.multiUser.adapters.CustomAdapter
 import com.example.miniproject1.multiUser.model.Group
 import com.example.miniproject1.multiUser.model.ItemsViewModel
-import com.example.miniproject1.multiUser.model.MembersAndTasksModel
-import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 
 class MultiUserFragment1 : Fragment(), ItemListener {
@@ -39,6 +38,7 @@ class MultiUserFragment1 : Fragment(), ItemListener {
     private lateinit var mAuth: FirebaseAuth
     lateinit var db: FirebaseFirestore
     lateinit var email: String
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var groupArrayList: ArrayList<ItemsViewModel>
@@ -78,8 +78,6 @@ class MultiUserFragment1 : Fragment(), ItemListener {
             getGroupNameDialogView.findViewById<Button>(R.id.createGroupWithNameBtn).setOnClickListener {
                 val groupName = getGroupNameDialogView.findViewById<EditText>(R.id.etNewGroupName).text.toString()
                 addGroupName(groupName);
-                Toast.makeText(context,
-                    ""+groupName , Toast.LENGTH_SHORT).show()
                 alertDialog.dismiss()
             }
         }
@@ -93,6 +91,16 @@ class MultiUserFragment1 : Fragment(), ItemListener {
 
         eventChangeListener()
 
+        swipeRefreshLayout = view.findViewById(R.id.container)
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                fragmentManager?.beginTransaction()?.detach(this)?.commitNow();
+                fragmentManager?.beginTransaction()?.attach(this)?.commitNow();
+            } else {
+                fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit();
+            }
+        }
 
     }
 

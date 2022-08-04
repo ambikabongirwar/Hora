@@ -32,17 +32,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/groupNametv" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvGroups"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="570dp"
-        android:layout_margin="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="550dp"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintBottom_toTopOf="@+id/newParticipant"
-        app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/group_card_item"/>
+        app:layout_constraintBottom_toTopOf="@+id/addTaskBtn">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvGroups"
+            android:layout_width="match_parent"
+            android:layout_height="570dp"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/group_card_item"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <!--<androidx.cardview.widget.CardView
         android:layout_width="409dp"

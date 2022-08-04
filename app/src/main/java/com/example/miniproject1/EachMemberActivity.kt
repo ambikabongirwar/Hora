@@ -1,6 +1,7 @@
 package com.example.miniproject1
 
 import android.app.AlertDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.miniproject1.multiUser.ItemListener
 import com.example.miniproject1.multiUser.adapters.EachMemberTaskAdapter
 import com.example.miniproject1.multiUser.model.NamesViewModel
@@ -29,6 +31,7 @@ class EachMemberActivity : AppCompatActivity(), ItemListener {
     lateinit var memberEmail: String
     lateinit var taskList: ArrayList<TaskModel>
     lateinit var adapter: EachMemberTaskAdapter
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     var TAG = "EachMemberActivity"
 
@@ -77,6 +80,18 @@ class EachMemberActivity : AppCompatActivity(), ItemListener {
                 addTask(task);
                 alertDialog.dismiss()
             }
+        }
+
+        swipeRefreshLayout = findViewById(R.id.container)
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false
+            val i = Intent(this, EachMemberActivity::class.java)
+            i.putExtra("groupName", groupName)
+            i.putExtra("emailId", memberEmail)
+            finish()
+            overridePendingTransition(0, 0)
+            startActivity(i)
+            overridePendingTransition(0, 0)
         }
     }
 
