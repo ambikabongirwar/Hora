@@ -76,14 +76,16 @@ class EachMemberActivity : AppCompatActivity(), ItemListener {
                     var tasks = document.data["tasks"].toString()
                     tasks = tasks.slice(1..tasks.length - 2)
                     Log.d(TAG, ""+tasks)
-                    for (taskStatus in tasks.split(", ")) {
-                        var ts = taskStatus.slice(1..taskStatus.length - 2)
-                        val taskAndStatus = ts.split("=")
-                        var status: Boolean = taskAndStatus[1] == "true"
-                        taskList.add(TaskModel(taskAndStatus[0], status))
+                    if (tasks != "") {
+                        for (taskStatus in tasks.split(", ")) {
+                            var ts = taskStatus.slice(1..taskStatus.length - 2)
+                            val taskAndStatus = ts.split("=")
+                            var status: Boolean = taskAndStatus[1] == "true"
+                            taskList.add(TaskModel(taskAndStatus[0], status))
+                        }
+                        adapter.notifyDataSetChanged()
                     }
                 }
-                adapter.notifyDataSetChanged()
                 Log.d(TAG, "Inside getData function, taskList: " + taskList)
             }
             .addOnFailureListener{ exception ->
@@ -173,21 +175,26 @@ class EachMemberActivity : AppCompatActivity(), ItemListener {
     fun addTask(task: String) {
         db = FirebaseFirestore.getInstance()
         var taskListTemp : ArrayList <HashMap<String, Boolean>> = ArrayList()
+        var documentExists: Boolean = false
         db.collection("members")
             .whereEqualTo("groupName", groupName)
             .whereEqualTo("emailId", memberEmail)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
+                    //If document exists:
+                    documentExists = true
                     var tasks = document.data["tasks"].toString()
                     tasks = tasks.slice(1..tasks.length - 2)
-                    for (taskStatus in tasks.split(", ")) {
-                        var ts = taskStatus.slice(1..taskStatus.length - 2)
-                        val taskAndStatus = ts.split("=")
-                        var status: Boolean = taskAndStatus[1] == "true"
-                        var hm : HashMap <String, Boolean> = HashMap()
-                        hm[taskAndStatus[0]] = status
-                        taskListTemp.add(hm)
+                    if (tasks != "") {
+                        for (taskStatus in tasks.split(", ")) {
+                            var ts = taskStatus.slice(1..taskStatus.length - 2)
+                            val taskAndStatus = ts.split("=")
+                            var status: Boolean = taskAndStatus[1] == "true"
+                            var hm: HashMap<String, Boolean> = HashMap()
+                            hm[taskAndStatus[0]] = status
+                            taskListTemp.add(hm)
+                        }
                     }
                     var hm : HashMap <String, Boolean> = HashMap()
                     hm[task] = false
@@ -199,6 +206,21 @@ class EachMemberActivity : AppCompatActivity(), ItemListener {
                         }
                         .addOnFailureListener { e ->
                             Log.w(TAG, "Error updating document", e)
+                        }
+                }
+                if (!documentExists) {
+                    val data = hashMapOf(
+                        "emailId" to memberEmail,
+                        "groupName" to groupName,
+                        "tasks" to arrayListOf(hashMapOf(task to false))
+                    )
+                    db.collection("members")
+                        .add(data)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(TAG, "Error adding document", e)
                         }
                 }
             }
