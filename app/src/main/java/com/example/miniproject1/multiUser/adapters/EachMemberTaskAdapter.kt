@@ -32,7 +32,7 @@ class EachMemberTaskAdapter(private val mList: List<TaskModel>, val listener: Ea
         fun bind(task: String, status: Boolean, position: Int, listener: EachMemberActivity) {
             taskTv.text = task
             statusCb.isChecked = status
-            statusCb.setOnClickListener { itemView -> listener.onClicked(position.toString()) }
+            statusCb.setOnClickListener { itemView -> listener.onClicked(task) }
         }
     }
 }
