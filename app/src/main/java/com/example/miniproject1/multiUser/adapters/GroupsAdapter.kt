@@ -4,6 +4,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.GroupActivity
@@ -20,7 +22,7 @@ class GroupsAdapter(private val mList: List<ItemsViewModel>, val listener: Group
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d("GroupActivity", "Inside Group Adapter: " + mList[position].text)
-        holder.bind(mList[position].text, listener)
+        holder.bind(mList[position].text, mList[position].delete, listener)
     }
 
     override fun getItemCount(): Int {
@@ -29,9 +31,11 @@ class GroupsAdapter(private val mList: List<ItemsViewModel>, val listener: Group
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.findViewById(R.id.textView)
-        fun bind(memberEmail: String, listener: GroupActivity) {
+        val deleteBtn: ImageButton = itemView.findViewById(R.id.ibDelete)
+        fun bind(memberEmail: String, delete: Boolean, listener: GroupActivity) {
             textView.text = memberEmail
             textView.setOnClickListener{itemView -> listener.onClicked(memberEmail)}
+            deleteBtn.setOnClickListener{itemView -> listener.onDeleteClicked(memberEmail)}
         }
     }
 

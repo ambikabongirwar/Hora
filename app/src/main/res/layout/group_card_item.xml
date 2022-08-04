@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="70dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     android:elevation="15dp">
 
-    <TextView
-        android:id="@+id/textView"
+    <RelativeLayout
+        android:id="@+id/rv2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:layout_marginLeft="15dp"
-        android:textColor="@color/purple_baseline"
-        android:text="Item"
-        android:textSize="30dp" />
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/purple_baseline"
+            android:text="Item"
+            android:textSize="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ibDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minHeight="30dp"
+            android:layout_marginRight="10dp"
+            android:contentDescription="@string/delete_task"
+            android:minWidth="50dp"
+            android:src="@drawable/ic_delete"
+            android:background="@color/white"
+            android:layout_toEndOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
