@@ -16,6 +16,7 @@ import com.example.miniproject1.multiUser.ItemListener
 import com.example.miniproject1.multiUser.adapters.GroupsAdapter
 import com.example.miniproject1.multiUser.model.ItemsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -23,6 +24,8 @@ class GroupActivity : AppCompatActivity(), ItemListener {
 
     private lateinit var membersArrayList: ArrayList<ItemsViewModel>
     lateinit var db: FirebaseFirestore
+    private lateinit var mAuth: FirebaseAuth
+    lateinit var email: String
 
     lateinit var groupName: String
     private lateinit var adapter: GroupsAdapter
@@ -35,6 +38,10 @@ class GroupActivity : AppCompatActivity(), ItemListener {
         groupName = intent.getStringExtra("groupName").toString()
         val groupNameTv = findViewById<TextView>(R.id.groupNametv)
         groupNameTv.text = groupName
+
+        mAuth = FirebaseAuth.getInstance()
+        val user = mAuth.currentUser
+        user.let { email = user?.email.toString() }
 
         val recyclerview = findViewById<RecyclerView>(R.id.rvGroups)
         recyclerview.layoutManager = LinearLayoutManager(this)
@@ -73,40 +80,101 @@ class GroupActivity : AppCompatActivity(), ItemListener {
         db = FirebaseFirestore.getInstance()
         var memberEmail = memberEmail.trim()
 
-        //Deleting all documents in the group having email as the email of user to delete from members collection
-        db.collection("members")
-            .whereEqualTo("emailId",memberEmail)
-            .whereEqualTo("groupName", groupName)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    //Toast.makeText(this, "Document exists", Toast.LENGTH_SHORT).show()
-                    db.collection("members").document(document.id)
-                        .delete()
-                        .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
-                        .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
+        //TODO("Optimize this code") - Boolean variable doesn't work due to async issues
+
+        if (memberEmail == email) {
+            //Toast.makeText(this, "This is your email", Toast.LENGTH_SHORT).show()
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Do you want to leave this group?")
+
+            builder.setPositiveButton("Yes") { dialog, which ->
+                db.collection("members")
+                    .whereEqualTo("emailId",memberEmail)
+                    .whereEqualTo("groupName", groupName)
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            //Toast.makeText(this, "Document exists", Toast.LENGTH_SHORT).show()
+                            db.collection("members").document(document.id)
+                                .delete()
+                                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                                .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w(TAG, "Error getting documents.", exception)
+                    }
+
+                //Deleting from groups collection:
+                db.collection("groups")
+                    .whereEqualTo("name", groupName)
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            //Toast.makeText(this, "Document exists", Toast.LENGTH_SHORT).show()
+                            db.collection("groups").document(document.id)
+                                .update("participants", FieldValue.arrayRemove(memberEmail))
+                                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+                                .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w(TAG, "Error getting documents.", exception)
+                    }
             }
 
-        //Deleting from groups collection:
-        db.collection("groups")
-            .whereEqualTo("name", groupName)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    //Toast.makeText(this, "Document exists", Toast.LENGTH_SHORT).show()
-                    db.collection("groups").document(document.id)
-                        .update("participants", FieldValue.arrayRemove(memberEmail))
-                        .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
-                        .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+            builder.setNegativeButton("No") { dialog, which ->
+                Toast.makeText(this,
+                    "no", Toast.LENGTH_SHORT).show()
+            }
+            builder.show()
+        }
+        else {
+            //Deleting all documents in the group having email as the email of user to delete from members collection
+            db.collection("members")
+                .whereEqualTo("emailId", memberEmail)
+                .whereEqualTo("groupName", groupName)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        //Toast.makeText(this, "Document exists", Toast.LENGTH_SHORT).show()
+                        db.collection("members").document(document.id)
+                            .delete()
+                            .addOnSuccessListener {
+                                Log.d(
+                                    TAG,
+                                    "DocumentSnapshot successfully deleted!"
+                                )
+                            }
+                            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents.", exception)
+                }
+
+            //Deleting from groups collection:
+            db.collection("groups")
+                .whereEqualTo("name", groupName)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        //Toast.makeText(this, "Document exists", Toast.LENGTH_SHORT).show()
+                        db.collection("groups").document(document.id)
+                            .update("participants", FieldValue.arrayRemove(memberEmail))
+                            .addOnSuccessListener {
+                                Log.d(
+                                    TAG,
+                                    "DocumentSnapshot successfully deleted!"
+                                )
+                            }
+                            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents.", exception)
+                }
+        }
     }
 
     private fun getData() {
