@@ -47,4 +47,5 @@
     <string name="title_activity_task">TaskActivity</string>
     <string name="delete_task">Delete task</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_count_down_timer">CountDownTimer</string>
 </resources>

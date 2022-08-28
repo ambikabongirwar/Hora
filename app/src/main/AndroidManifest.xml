@@ -10,18 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniProject1">
         <activity
-            android:name=".ProfileActivity"
+            android:name=".singleUser.moodCheck.CountDownTimerActivity"
             android:exported="false"
-            android:label="@string/title_activity_profile"
+            android:label="@string/title_activity_count_down_timer"
             android:theme="@style/Theme.MiniProject1.NoActionBar" />
         <activity
             android:name=".EachMemberActivity"
             android:exported="false" />
-        <activity
-            android:name=".TaskActivity"
-            android:exported="false"
-            android:label="@string/title_activity_task"
-            android:theme="@style/Theme.MiniProject1.NoActionBar" />
         <activity
             android:name=".GroupActivity"
             android:exported="false"
