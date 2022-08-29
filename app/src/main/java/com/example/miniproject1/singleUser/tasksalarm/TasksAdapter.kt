@@ -1,4 +1,4 @@
-package com.example.miniproject1.singleUser.tasks
+package com.example.miniproject1.singleUser.tasksalarm
 
 import android.view.LayoutInflater
 import android.view.View

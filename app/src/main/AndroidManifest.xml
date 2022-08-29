@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.miniproject1">
+
+    <uses-permission
+        android:name="android.permission.SET_TIME" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -8,7 +16,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MiniProject1">
+        android:theme="@style/Base.Theme.MiniProject1">
+        <activity
+            android:name=".singleUser.tasksalarm.TaskCreationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_task_creation"
+            android:theme="@style/Theme.MiniProject1.NoActionBar" />
+        <activity
+            android:name=".singleUser.tasksalarm.TaskListActivity"
+            android:theme="@style/Theme.MiniProject1.NoActionBar" />
         <activity
             android:name=".singleUser.moodCheck.CountDownTimerActivity"
             android:exported="false"
@@ -31,6 +47,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".singleUser.tasksalarm.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

@@ -1,13 +1,10 @@
-package com.example.miniproject1.singleUser.tasks
+package com.example.miniproject1.singleUser.tasksalarm
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -20,11 +17,11 @@ class TasksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_tasks, container, false)
+        val view = inflater.inflate(R.layout.activity_task_list, container, false)
         bottomNav = container?.getRootView()?.findViewById(R.id.bottom_navigation)!!
         bottomNav.setVisibility(View.GONE)
 
-        //val taskList = DataSource().loadTasks()
+        /*//val taskList = DataSource().loadTasks()
         val taskList = mutableListOf<Task>(
             Task("Complete Seminar", true),
             Task("Complete mini project", false)
@@ -43,7 +40,7 @@ class TasksFragment : Fragment() {
             adapter!!.notifyItemInserted(taskList.size - 1)
         }
 
-        //recyclerView.setHasFixedSize(true)
+        //recyclerView.setHasFixedSize(true)*/
 
         return view
     }

@@ -32,9 +32,9 @@
     </fragment>
     <fragment
         android:id="@+id/tasksFragment"
-        android:name="com.example.miniproject1.singleUser.tasks.TasksFragment"
+        android:name="com.example.miniproject1.singleUser.tasksalarm.TasksFragment"
         android:label="fragment_tasks"
-        tools:layout="@layout/fragment_tasks" />
+        tools:layout="@layout/activity_task_list" />
     <fragment
         android:id="@+id/moodCheckFragment"
         android:name="com.example.miniproject1.singleUser.moodCheck.MoodCheckFragment"

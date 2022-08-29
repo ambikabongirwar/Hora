@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ambik/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_dropdown_item.xml" value="0.17028985507246377" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/drawable/ic_delete.xml" value="0.13" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/drawable/ic_single_user.xml" value="0.1" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout-v21/group_card_item.xml" value="0.18697916666666667" />
@@ -13,6 +14,8 @@
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/activity_profile.xml" value="0.10416666666666667" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/activity_show_group.xml" value="0.16510416666666666" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/activity_task.xml" value="0.153125" />
+        <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/activity_task_creation.xml" value="0.2" />
+        <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/activity_task_list.xml" value="0.2" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/content_group.xml" value="0.1" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/content_profile.xml" value="0.1515625" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/content_show_group.xml" value="0.16510416666666666" />
@@ -28,17 +31,19 @@
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_register.xml" value="0.1" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_register1.xml" value="0.25" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_single_user.xml" value="0.25" />
-        <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_tasks.xml" value="0.25" />
+        <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/fragment_tasks.xml" value="0.22962962962962963" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/group_button.xml" value="0.2" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/group_button_item.xml" value="0.25" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/group_card_item.xml" value="0.215625" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/group_name.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/individual_task_item.xml" value="0.18115942028985507" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/item_task.xml" value="0.25" />
+        <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/item_user.xml" value="0.1" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/member_card_item.xml" value="0.22735507246376813" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/simple_et.xml" value="0.1" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/layout/task_item.xml" value="0.22735507246376813" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/menu/bottom_menu.xml" value="0.25" />
+        <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/menu/menu.xml" value="0.1" />
         <entry key="..\:/Users/ambik/android studio projects/miniProject1/app/src/main/res/menu/profile_pop_up_menu.xml" value="0.25" />
         <entry key="..\:/Users/ambik/miniProject1/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/ambik/miniProject1/app/src/main/res/layout/fragment_multi_user.xml" value="0.23007246376811594" />
