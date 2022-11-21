@@ -2,26 +2,22 @@ package com.example.miniproject1.multiUser.datasource
 
 import android.content.Context
 import android.util.Log
-import androidx.navigation.Navigator
-import com.example.miniproject1.multiUser.model.ItemsViewModel
-import com.google.firebase.firestore.DocumentSnapshot
+import com.example.miniproject1.multiUser.model.GroupsPageViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 
 data class GroupNamesDatasource(val context: Context) {
     val TAG = GroupNamesDatasource::class.simpleName
-    val result: ArrayList<ItemsViewModel> = ArrayList()
+    val result: ArrayList<GroupsPageViewModel> = ArrayList()
 
-    fun getDataFromFirebase(data: ArrayList<ItemsViewModel>) {
+    fun getDataFromFirebase(data: ArrayList<GroupsPageViewModel>) {
         val db = FirebaseFirestore.getInstance()
         Log.d(TAG, "Inside data from firebase")
         db.collection("groups")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    data.add(ItemsViewModel(""+document.data["Name"]))
+                    data.add(GroupsPageViewModel(""+document.data["Name"]))
                     Log.d(TAG, "${document.id} => ${document.data["Name"]}")
                 }
             }
@@ -30,10 +26,10 @@ data class GroupNamesDatasource(val context: Context) {
             }
     }
 
-    fun getGroupNamesList(): ArrayList<ItemsViewModel> {
+    fun getGroupNamesList(): ArrayList<GroupsPageViewModel> {
         val db = FirebaseFirestore.getInstance()
         for (i in 1..10) {
-            result.add(ItemsViewModel("Group " + i))
+            result.add(GroupsPageViewModel("Group " + i))
         }
         return result
     }

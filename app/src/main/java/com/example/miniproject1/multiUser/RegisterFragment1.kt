@@ -52,6 +52,7 @@ class RegisterFragment1 : Fragment() {
         navController = Navigation.findNavController(view)
         val currentUser = mAuth.currentUser
         if (currentUser != null) {
+            //If user is already logged in
             navController.navigate(R.id.action_registerFragment1_to_multiUserFragment1)
         }
         else {

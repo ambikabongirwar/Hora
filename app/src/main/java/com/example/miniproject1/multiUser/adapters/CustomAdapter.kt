@@ -5,14 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.miniproject1.R
 import com.example.miniproject1.multiUser.ItemListener
 import com.example.miniproject1.multiUser.MultiUserFragment1
-import com.example.miniproject1.multiUser.model.ItemsViewModel
+import com.example.miniproject1.multiUser.model.GroupsPageViewModel
 
-class CustomAdapter(private val mList: List<ItemsViewModel>, val listener : MultiUserFragment1) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val groupsList: List<GroupsPageViewModel>, val listener : MultiUserFragment1) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,13 +25,13 @@ class CustomAdapter(private val mList: List<ItemsViewModel>, val listener : Mult
 
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(mList[position].text, mList[position].delete, listener)
+        holder.bind(groupsList[position].text, groupsList[position].delete, listener)
 
     }
 
     // return the number of the items in the list
     override fun getItemCount(): Int {
-        return mList.size
+        return groupsList.size
     }
 
     // Holds the views for adding it to image and text

@@ -13,7 +13,6 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +22,7 @@ import com.example.miniproject1.GroupActivity
 import com.example.miniproject1.R
 import com.example.miniproject1.multiUser.adapters.CustomAdapter
 import com.example.miniproject1.multiUser.model.Group
-import com.example.miniproject1.multiUser.model.ItemsViewModel
+import com.example.miniproject1.multiUser.model.GroupsPageViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -41,7 +40,7 @@ class MultiUserFragment1 : Fragment(), ItemListener {
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var groupArrayList: ArrayList<ItemsViewModel>
+    private lateinit var groupArrayList: ArrayList<GroupsPageViewModel>
     private lateinit var customAdapter: CustomAdapter
     var TAG = "MultiUserFragment1"
 
@@ -159,7 +158,7 @@ class MultiUserFragment1 : Fragment(), ItemListener {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    groupArrayList.add(ItemsViewModel(document.data["name"].toString()))
+                    groupArrayList.add(GroupsPageViewModel(document.data["name"].toString()))
                     customAdapter.notifyDataSetChanged()
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                 }
